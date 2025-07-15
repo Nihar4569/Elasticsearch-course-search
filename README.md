@@ -12,7 +12,7 @@ A Spring Boot application that provides course search functionality using Elasti
   
 - **Assignment B (Bonus)**:
   - Autocomplete suggestions for course titles
-  - Fuzzy search for handling typos
+  - Partial match support for autocomplete (no real fuzzy/typo correction)
 
 ## Prerequisites
 
@@ -132,20 +132,20 @@ Get suggestions for "math":
 curl "http://localhost:8080/api/search/suggest?q=math"
 ```
 
-## Fuzzy Search
+## Similar to Fuzzy Search
 
-The main search endpoint supports fuzzy matching automatically. It can handle typos in search queries.
+The search supports **partial word matching**, which can feel similar to fuzzy search — but it does **not correct typos**.
 
 **Examples**:
 
-Search with typo "dinors" (should match "Dinosaurs"):
+Search with partial title "math" (matches "Mathematics"):
 ```bash
-curl "http://localhost:8080/api/search?q=dinors"
+curl "http://localhost:8080/api/search?q=math"
 ```
 
-Search with typo "chesistry" (should match "Chemistry"):
+Search with partial title "chem" (matches "Chemistry"):
 ```bash
-curl "http://localhost:8080/api/search?q=chesistry"
+curl "http://localhost:8080/api/search?q=chem"
 ```
 
 ## Response Format
@@ -248,7 +248,7 @@ The application includes 50 sample courses with varied:
 
 ## Additional Features
 
-- **Fuzzy Search**: Automatically handles typos in search queries
+- **Autocomplete**: Provides partial matches for course titles
 - **Autocomplete**: Provides title suggestions as you type
 - **Multiple Filters**: Combine multiple filters for precise searches
 - **Flexible Sorting**: Sort by date or price in ascending/descending order
