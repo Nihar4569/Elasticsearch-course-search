@@ -598,5 +598,17 @@
     "maxAge": 12,
     "price": 70.00,
     "nextSessionDate": "2025-07-29T14:00:00Z"
+  },
+  {
+    "id": "99",
+    "title": "Mat Fun: Creative Math Activities",
+    "description": "Explore math through fun games and exercises. Great for building foundational skills.",
+    "category": "Math",
+    "type": "COURSE",
+    "gradeRange": "2nd–4th",
+    "minAge": 7,
+    "maxAge": 10,
+    "price": 85.00,
+    "nextSessionDate": "2025-08-10T10:00:00Z"
   }
 ]

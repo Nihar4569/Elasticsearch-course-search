@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class CourseService {
 
@@ -46,19 +47,17 @@ public class CourseService {
         Criteria criteria = new Criteria();
 
         if (query != null && !query.isEmpty()) {
+            // Basic full-text match on title and description
             Criteria titleCriteria = new Criteria("title").matches(query);
             Criteria descriptionCriteria = new Criteria("description").matches(query);
             criteria = criteria.and(titleCriteria.or(descriptionCriteria));
         }
 
-        // Fixed age filtering logic here:
         if (minAge != null) {
-            // Course maxAge should be >= minAge filter (course covers this age)
             criteria = criteria.and(new Criteria("maxAge").greaterThanEqual(minAge));
         }
 
         if (maxAge != null) {
-            // Course minAge should be <= maxAge filter (course covers this age)
             criteria = criteria.and(new Criteria("minAge").lessThanEqual(maxAge));
         }
 
@@ -82,6 +81,7 @@ public class CourseService {
             criteria = criteria.and(new Criteria("nextSessionDate").greaterThanEqual(startDate));
         }
 
+        // Sorting
         Sort.Direction sortDirection = Sort.Direction.ASC;
         String sortField = "nextSessionDate";
 
@@ -97,7 +97,6 @@ public class CourseService {
                     break;
                 default:
                     sortField = "nextSessionDate";
-                    sortDirection = Sort.Direction.ASC;
             }
         }
 
@@ -118,7 +117,7 @@ public class CourseService {
             return new ArrayList<>();
         }
 
-        Criteria criteria = new Criteria("title").startsWith(query);
+        Criteria criteria = new Criteria("title").contains(query);  // partial match
         Query searchQuery = new CriteriaQuery(criteria);
 
         SearchHits<CourseDocument> searchHits = elasticsearchOperations.search(searchQuery, CourseDocument.class);
@@ -136,6 +135,7 @@ public class CourseService {
             return new ArrayList<>();
         }
 
+        // This is just a contains search, not real fuzzy, but works without extra deps
         Criteria criteria = new Criteria("title").contains(query);
         Query searchQuery = new CriteriaQuery(criteria);
 
