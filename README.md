@@ -4,13 +4,11 @@ A Spring Boot application that provides course search functionality using Elasti
 
 ## Features
 
-- **Assignment A (Required)**:
   - Full-text search on course titles and descriptions
   - Multiple filters (age, category, type, price, date)
   - Sorting by date and price
   - Pagination support
   
-- **Assignment B (Bonus)**:
   - Autocomplete suggestions for course titles
   - Partial match support for autocomplete (no real fuzzy/typo correction)
 
